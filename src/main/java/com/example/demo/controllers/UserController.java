@@ -1,12 +1,11 @@
-package com.example.demo;
+package com.example.demo.controllers;
 
-import org.apache.catalina.connector.Response;
+import com.example.demo.model.User;
+import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class UserController {
@@ -14,6 +13,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    /***
+     * @return Return a list of all users
+     */
     @GetMapping("users")
     public ResponseEntity<Iterable<User>> getUsers(){
         try {
@@ -24,10 +26,15 @@ public class UserController {
         }
     }
 
+    /***
+     * Get user by id
+     * @param id id of user
+     * @return user, his pocket and list of his orders
+     */
     @GetMapping("users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id){
         try {
-            var value = userService.getUser(id);
+            var value = userService.getUserOrders(id);
             if(value == null) {
                 return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
             } else return new ResponseEntity<User>(value, HttpStatus.OK);
