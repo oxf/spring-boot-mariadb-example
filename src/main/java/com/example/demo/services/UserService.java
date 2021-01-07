@@ -1,11 +1,13 @@
 package com.example.demo.services;
 
+import com.example.demo.model.DTO.UserShortDTO;
 import com.example.demo.model.User;
 import com.example.demo.repositories.OrderRepository;
 import com.example.demo.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.*;
 import java.util.regex.Pattern;
 
 @Service
@@ -84,12 +86,18 @@ public class UserService {
     }
 
     public User getUserOrders(int id) {
+        return getUserById(id);
+    }
+
+    public User getUserById(int id) {
         var value = usersRepository.findById(id);
         return value.orElse(null);
     }
 
-    public Iterable<User> getAllUsers() {
-        return usersRepository.findAll();
+    public List<UserShortDTO> getAllUsers() {
+        List<UserShortDTO> dtosList = new ArrayList<UserShortDTO>();
+        usersRepository.findAll().forEach(x -> dtosList.add(new UserShortDTO(x.id, x.name, x.isActive, x.isAdult, x.pocket)));
+        return dtosList;
     }
 
     public boolean deleteUser(int id) {

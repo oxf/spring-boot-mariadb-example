@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.model.DTO.UserShortDTO;
 import com.example.demo.model.User;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,12 @@ public class UserController {
      * @return Return a list of all users
      */
     @GetMapping("users")
-    public ResponseEntity<Iterable<User>> getUsers(){
+    public ResponseEntity<Iterable<UserShortDTO>> getUsers(){
         try {
-            return new ResponseEntity<Iterable<User>>(userService.getAllUsers(), HttpStatus.OK);
+            return new ResponseEntity<Iterable<UserShortDTO>>(userService.getAllUsers(), HttpStatus.OK);
         } catch (Exception e) {
             System.out.println("exception was thrown: "+e);
-            return new ResponseEntity<Iterable<User>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Iterable<UserShortDTO>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -34,7 +35,7 @@ public class UserController {
     @GetMapping("users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id){
         try {
-            var value = userService.getUserOrders(id);
+            var value = userService.getUserById(id);
             if(value == null) {
                 return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
             } else return new ResponseEntity<User>(value, HttpStatus.OK);

@@ -43,7 +43,18 @@ public class ProductService {
         }
     }
 
+
+    public Iterable<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    public Product getProductById(int productId) {
+        var value = productRepository.findById(productId);
+        return value.orElse(null);
+    }
+
     public boolean verifyProductName(String productName) {
         return PATTERN_PRODUCT_NAME.matcher(productName).matches();
     }
+
 }

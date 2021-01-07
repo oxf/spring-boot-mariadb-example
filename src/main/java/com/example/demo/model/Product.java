@@ -13,7 +13,7 @@ import javax.persistence.*;
 @ToString
 public class Product {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     @Column
     public String productName;
@@ -21,4 +21,6 @@ public class Product {
     public Double price;
     @Column
     public Boolean isForAdult;
+
+    public Product() {}
 }

@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,12 +15,26 @@ import javax.persistence.*;
 @ToString
 public class Order {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
-    @Column
-    public String productName;
+
     @Column
     public int amount;
-    @Column
-    public double price;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    public Product product;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JsonIgnoreProperties("orders")
+    @JoinColumn(name = "user_id", referencedColumnName = "id", updatable = false, nullable = false)
+    public User user;
+
+    public Order() {}
+
+    public Order(int amount, Product product, User user) {
+        this.amount = amount;
+        this.product = product;
+        this.user = user;
+    }
 }
