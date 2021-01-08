@@ -1,6 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.model.Product;
+import com.example.demo.model.entities.Product;
 import com.example.demo.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 @Service
 public class ProductService {
 
-    private final Pattern PATTERN_PRODUCT_NAME = Pattern.compile("^[a-zA-Z0-9_ ]*$");
+    private final Pattern PATTERN_PRODUCT_NAME = Pattern.compile("^[a-zA-Z0-9 ]*$");
 
     @Autowired
     public ProductRepository productRepository;

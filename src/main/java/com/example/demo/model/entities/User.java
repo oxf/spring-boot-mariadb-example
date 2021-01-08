@@ -1,6 +1,8 @@
-package com.example.demo.model;
+package com.example.demo.model.entities;
 
+import com.example.demo.model.entities.Order;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,10 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-@Getter
-@Setter
-@ToString
-public class User {
+public @Data class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;

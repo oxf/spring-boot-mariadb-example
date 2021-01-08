@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.model.OrderRequest;
-import com.example.demo.model.Product;
+import com.example.demo.model.requests.OrderRequest;
 import com.example.demo.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

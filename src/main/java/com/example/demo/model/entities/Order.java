@@ -1,7 +1,7 @@
-package com.example.demo.model;
+package com.example.demo.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,10 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "order_item")
-@Getter
-@Setter
-@ToString
-public class Order {
+public @Data class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;

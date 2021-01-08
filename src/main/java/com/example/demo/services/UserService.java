@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.model.DTO.UserShortDTO;
-import com.example.demo.model.User;
+import com.example.demo.model.entities.User;
 import com.example.demo.repositories.OrderRepository;
 import com.example.demo.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -94,10 +95,15 @@ public class UserService {
         return value.orElse(null);
     }
 
+    public List<User> getAllUsersOrders() {
+        return (List<User>) usersRepository.findAll();
+    }
+
     public List<UserShortDTO> getAllUsers() {
-        List<UserShortDTO> dtosList = new ArrayList<UserShortDTO>();
-        usersRepository.findAll().forEach(x -> dtosList.add(new UserShortDTO(x.id, x.name, x.isActive, x.isAdult, x.pocket)));
-        return dtosList;
+        List<User> userList = (List<User>) usersRepository.findAll();
+        return userList.stream()
+                .map(x -> new UserShortDTO(x.id, x.name, x.isActive, x.isAdult, x.pocket))
+                .collect(Collectors.toList());
     }
 
     public boolean deleteUser(int id) {

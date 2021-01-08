@@ -1,5 +1,6 @@
-package com.example.demo.model;
+package com.example.demo.model.entities;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,10 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "product")
-@Getter
-@Setter
-@ToString
-public class Product {
+public @Data class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
